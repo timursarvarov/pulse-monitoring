@@ -31,5 +31,7 @@
 	</dependencies>
 	<modules>
 		<module>pulse-analyser</module>
+		<module>pulse-monitoring-dto</module>
+		<module>pulse-source</module>
 	</modules>
 </project>

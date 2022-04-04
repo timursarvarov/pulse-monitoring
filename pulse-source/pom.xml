@@ -5,7 +5,7 @@
     <artifactId>pulse-monitoring</artifactId>
     <version>0.0.1</version>
   </parent>
-  <artifactId>pulse-analyser</artifactId>
+  <artifactId>pulse-source</artifactId>
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2021.0.1</spring-cloud.version>
