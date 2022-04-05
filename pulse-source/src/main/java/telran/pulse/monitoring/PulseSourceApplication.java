@@ -1,5 +1,6 @@
 package telran.pulse.monitoring;
 
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
 
 import org.springframework.boot.SpringApplication;
@@ -7,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
-import io.netty.util.internal.ThreadLocalRandom;
+
 import telran.pulse.monitoring.dto.Sensor;
 
 @SpringBootApplication
