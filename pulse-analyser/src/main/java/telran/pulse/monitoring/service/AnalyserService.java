@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jmx.export.annotation.ManagedOperation;
+import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.stereotype.Service;
 
 import telran.pulse.monitoring.dto.Sensor;
@@ -16,6 +18,7 @@ import telran.pulse.monitoring.entities.SensorRedis;
 import telran.pulse.monitoring.repo.SensorRepository;
 
 @Service
+@ManagedResource
 public class AnalyserService {
 	static Logger LOG = LoggerFactory.getLogger(AnalyserService.class);
 	@Autowired
@@ -24,6 +27,17 @@ public class AnalyserService {
 	SensorRepository sensorRepository;
 	@Value("${app.jump.threshold:50}")
 	int jumpPercentThreshold;
+
+	@ManagedOperation
+	public int getJumpPercentThreshold() {
+		return jumpPercentThreshold;
+	}
+
+	@ManagedOperation
+	public void setJumpPercentThreshold(int jumpPercentThreshold) {
+		this.jumpPercentThreshold = jumpPercentThreshold;
+	}
+
 	@Value("${app.critical.threshold:100}")
 	int criticalPercentThreshold;
 
@@ -38,25 +52,24 @@ public class AnalyserService {
 		if (sensorRedis == null) {
 			LOG.debug("for sensor id {} not found record in redis", sensor.id);
 			sensorRedis = new SensorRedis(sensor.id);
-			
+
 		} else {
 			int lastValue = sensorRedis.getLastValue();
 			int delta = Math.abs(lastValue - sensor.value);
-			double percent = (double)delta / lastValue * 100;
+			double percent = (double) delta / lastValue * 100;
 			if (percent > jumpPercentThreshold) {
 				LOG.debug("sensor id {} has values jump {} ", sensor.id, delta);
 				SensorJump sensorJump = new SensorJump(sensor.id, lastValue, sensor.value);
-				streamBridge.send("jumps-out-0",
-						sensorJump);
+				streamBridge.send("jumps-out-0", sensorJump);
 				if (percent > criticalPercentThreshold) {
-					LOG.debug("sensor id {} has critical values jump {}", sensor.id, delta );
+					LOG.debug("sensor id {} has critical values jump {}", sensor.id, delta);
 					streamBridge.send("critical-jumps-out-0", sensorJump);
 				}
 			}
 		}
 		sensorRedis.addCurrentValue(sensor.value);
 		sensorRepository.save(sensorRedis);
-		
+
 	}
 
 }
