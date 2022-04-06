@@ -34,5 +34,7 @@
 		<module>pulse-monitoring-dto</module>
 		<module>pulse-source</module>
 		<module>pulse-monitoring-config-server</module>
+		<module>pulse-monitoring-jumps-populator</module>
+		<module>pulse-monitoring-jumps-notifier</module>
 	</modules>
 </project>
