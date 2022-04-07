@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import telran.pulse.monitoring.dto.Sensor;
 import telran.pulse.monitoring.dto.SensorJump;
-import telran.pulse.monitoring.entities.SensorRedis;
+import telran.pulse.monitoring.entities.SensorLastValues;
 import telran.pulse.monitoring.repo.SensorRepository;
 
 @Service
@@ -48,10 +48,10 @@ public class AnalyserService {
 
 	void pulseProcessing(Sensor sensor) {
 		LOG.trace("Received sensor id {}; value {} ", sensor.id, sensor.value);
-		SensorRedis sensorRedis = sensorRepository.findById(sensor.id).orElse(null);
+		SensorLastValues sensorRedis = sensorRepository.findById(sensor.id).orElse(null);
 		if (sensorRedis == null) {
 			LOG.debug("for sensor id {} not found record in redis", sensor.id);
-			sensorRedis = new SensorRedis(sensor.id);
+			sensorRedis = new SensorLastValues(sensor.id);
 
 		} else {
 			int lastValue = sensorRedis.getLastValue();
@@ -67,7 +67,7 @@ public class AnalyserService {
 				}
 			}
 		}
-		sensorRedis.addCurrentValue(sensor.value);
+		sensorRedis.setLastValue(sensor.value);
 		sensorRepository.save(sensorRedis);
 
 	}

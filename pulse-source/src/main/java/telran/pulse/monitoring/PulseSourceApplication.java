@@ -26,7 +26,7 @@ static ConfigurableApplicationContext ctx;
 	Sensor pulseRandomGeneration() {
 		int id = getRandomNumber(1, 10);
 		int value = getRandomNumber(40, 220);
-		Sensor sensor = new Sensor(id, value, count++);
+		Sensor sensor = new Sensor(id, value);
 //		if (count > 100) {
 //			ctx.close();
 //		}
