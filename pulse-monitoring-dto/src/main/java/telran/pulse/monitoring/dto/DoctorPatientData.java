@@ -12,5 +12,9 @@ public DoctorPatientData(String email, String doctorName, String patientName) {
 	this.doctorName = doctorName;
 	this.patientName = patientName;
 }
+@Override
+public String toString() {
+	return "DoctorPatientData [email=" + email + ", doctorName=" + doctorName + ", patientName=" + patientName + "]";
+}
 
 }
