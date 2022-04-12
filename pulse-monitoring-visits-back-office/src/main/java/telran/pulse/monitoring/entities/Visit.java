@@ -1,12 +1,13 @@
 package telran.pulse.monitoring.entities;
 import java.time.LocalDateTime;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.persistence.*;
 @Entity
 @Table(name="visits")
 public class Visit {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	int id;
 	LocalDateTime date;
 	@ManyToOne
@@ -18,6 +19,7 @@ public class Visit {
 	public Visit() {
 	}
 	public Visit(LocalDateTime date, Doctor doctor, Patient patient) {
+		this.id = ThreadLocalRandom.current().nextInt(20, 2000000000); //as workaround of existing visits table
 		this.date = date;
 		this.doctor = doctor;
 		this.patient = patient;
