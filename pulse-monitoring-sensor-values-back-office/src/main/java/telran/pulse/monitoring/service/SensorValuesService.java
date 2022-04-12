@@ -4,5 +4,5 @@ import java.time.LocalDateTime;
 
 public interface SensorValuesService {
 int getAverageDates(int sensorId, LocalDateTime from, LocalDateTime to);
-int getJumpsCountDates (int sensorId, LocalDateTime from, LocalDateTime to);
+long getJumpsCountDates (int sensorId, LocalDateTime from, LocalDateTime to);
 }
