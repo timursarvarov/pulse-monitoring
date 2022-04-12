@@ -1,27 +1,20 @@
 package telran.pulse.monitoring.dto;
 
 public class DoctorPatientData {
-    public String name;
-    public String doctorName;
-    public String patientName;
-    public String email;
+public String email;
+public String doctorName;
+public String patientName;
+public DoctorPatientData() {
+}
+public DoctorPatientData(String email, String doctorName, String patientName) {
+	super();
+	this.email = email;
+	this.doctorName = doctorName;
+	this.patientName = patientName;
+}
+@Override
+public String toString() {
+	return "DoctorPatientData [email=" + email + ", doctorName=" + doctorName + ", patientName=" + patientName + "]";
+}
 
-    @Override
-    public String toString() {
-        return "DoctorPatientData{" +
-                "name='" + name + '\'' +
-                ", doctorName='" + doctorName + '\'' +
-                ", patientName='" + patientName + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
-
-    public DoctorPatientData() {
-    }
-
-    public DoctorPatientData(String doctorName, String patientName, String email) {
-        this.doctorName = doctorName;
-        patientName = patientName;
-        email = email;
-    }
 }
