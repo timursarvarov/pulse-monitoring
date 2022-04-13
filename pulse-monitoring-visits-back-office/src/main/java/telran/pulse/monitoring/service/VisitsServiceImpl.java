@@ -3,6 +3,7 @@ package telran.pulse.monitoring.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import telran.pulse.monitoring.dto.VisitData;
@@ -12,7 +13,7 @@ import telran.pulse.monitoring.entities.Visit;
 import telran.pulse.monitoring.repo.DoctorRepository;
 import telran.pulse.monitoring.repo.PatientRepository;
 import telran.pulse.monitoring.repo.VisitRepository;
-
+@Service
 public class VisitsServiceImpl implements VisitsService {
 	DoctorRepository doctorRepository;
 	PatientRepository patientRepository;

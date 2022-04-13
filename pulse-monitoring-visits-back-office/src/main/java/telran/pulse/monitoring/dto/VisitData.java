@@ -1,15 +1,11 @@
 package telran.pulse.monitoring.dto;
 
+import java.time.LocalDateTime;
+
 public interface VisitData {
-    public int getpatientId();
-
-    public String getpatientName();
-
-    public String getdoctorName();
-
-    public String getvisitDate();
-
-    public String getVisitData();
-
+public int getPatientId();
+public String getPatientName();
+public String getDoctorName();
+public LocalDateTime getVisitDate();
 
 }

@@ -41,5 +41,6 @@
 		<module>pulse-monitoring-average-populator</module>
 		<module>pulse-monitoring-visits-back-office</module>
 		<module>pulse-monitoring-sensor-values-back-office</module>
-	</modules>
+        <module>pulse-monitoring-gateway</module>
+    </modules>
 </project>
