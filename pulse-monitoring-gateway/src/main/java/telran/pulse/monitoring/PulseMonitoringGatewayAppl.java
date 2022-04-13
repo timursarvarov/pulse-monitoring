@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import telran.pulse.monitoring.dto.*;
@@ -25,7 +27,8 @@ PasswordEncoder passwordEncoder;
 		SpringApplication.run(PulseMonitoringGatewayAppl.class, args);
 
 	}
-	ResponseEntity<?> login(LoginData loginData) {
+	@PostMapping("/login")
+	ResponseEntity<?> login(@RequestBody LoginData loginData) {
 		Account account = accounting.getAccount(loginData.email);
 		if (account != null && passwordEncoder.matches(loginData.password,
 				account.getHashPassword())) {
