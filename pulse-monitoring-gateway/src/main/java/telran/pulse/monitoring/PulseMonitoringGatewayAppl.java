@@ -19,28 +19,36 @@ import telran.pulse.monitoring.security.AccountingManagement;
 @SpringBootApplication
 @RestController
 public class PulseMonitoringGatewayAppl {
-	@Autowired
-PasswordEncoder passwordEncoder;
-	@Autowired
+    final
+	PasswordEncoder passwordEncoder;
+    final
 	AccountingManagement accounting;
-	public static void main(String[] args) {
-		SpringApplication.run(PulseMonitoringGatewayAppl.class, args);
 
+	public PulseMonitoringGatewayAppl(PasswordEncoder passwordEncoder, AccountingManagement accounting) {
+		this.passwordEncoder = passwordEncoder;
+		this.accounting = accounting;
 	}
-	@PostMapping("/login")
-	ResponseEntity<?> login(@RequestBody LoginData loginData) {
-		Account account = accounting.getAccount(loginData.email);
-		if (account != null && passwordEncoder.matches(loginData.password,
-				account.getHashPassword())) {
-			return ResponseEntity.ok(getToken(loginData, account));
-		}
-		return ResponseEntity.badRequest().body("Wrong Credentials");
-		
-	}
-	private LoginResponse getToken(LoginData loginData, Account account) {
-		byte[] code = String.format("%s:%s", loginData.email, loginData.password).getBytes();
-		return new LoginResponse("Basic " +
-		Base64.getEncoder().encodeToString(code), account.getRole());
-	}
+
+	public static void main(String[] args) {
+        SpringApplication.run(PulseMonitoringGatewayAppl.class, args);
+
+    }
+
+    @PostMapping("/login")
+    ResponseEntity<?> login(@RequestBody LoginData loginData) {
+        Account account = accounting.getAccount(loginData.email);
+        if (account != null && passwordEncoder.matches(loginData.password,
+                account.getHashPassword())) {
+            return ResponseEntity.ok(getToken(loginData, account));
+        }
+        return ResponseEntity.badRequest().body("Wrong Credentials");
+
+    }
+
+    private LoginResponse getToken(LoginData loginData, Account account) {
+        byte[] code = String.format("%s:%s", loginData.email, loginData.password).getBytes();
+        return new LoginResponse("Basic " +
+                Base64.getEncoder().encodeToString(code), account.getRole());
+    }
 
 }

@@ -3,3 +3,10 @@ spring:
     name: pulse-monitoring-doctor-data-provider
   config:
     import: configserver:http://localhost:8888
+  spring:
+    cloud:
+      config:
+        fail-fast:true
+        retry:
+          initial-interval:3000
+          max-interval:10000
